@@ -1,0 +1,48 @@
+<!--Filename: StudentSignup.html
+    HTML and CSS programmer: Khadijah Wali
+    Backend programmer: -->
+
+<html>
+<head>
+
+<title>Student-Sign In</title>
+
+<center>
+<h1>202 TA Sign-up</h1>
+<h2>Enter Your Information to Sign up to Meet a TA</h2>
+<button>View Waitlist</button>
+</center>
+
+</head>
+<body>
+
+<form action='Signup.html' method='post' name='Signup'>
+
+    <!--Access database and autofill Name and Email from login information
+        Student should be allowed to edit their name if they have a different
+        preferred name (like a nickname) from the umbc database. Possibly have
+        email not be editable-->
+    Name:<br>
+    <input type='text' name='studentName' placeholder='Eg. John Smith' required><p>
+    
+    UMBC Email:<br>
+    <input type='text' name='email' placeholder='Eg. JSmith@umbc.edu' required><p>
+
+    Subject of Meeting:<br>
+   <select name='subject' required>
+     <option value ='' disabled selected >Select</option>
+     <option value='project'>Project</option>
+     <option value='concepts'>Concepts </option>
+     <option value='exam'>Exam</option>
+     <option value='other'>Other</option>
+   </select><p>
+  
+    (Optional) Give a brief description of what you need help with:<br>
+    <textarea rows='8' cols='50' placeholder='Eg. Help with project 2 class declarations.' name='desc'></textarea><p>
+    
+ <button type='submit'>SIGN UP</button></form> <div align="right"><form action='Login.html' method='post'><button>LOG OUT</button></form></div>
+    <!--The log out button currently goes straight back to Login.html but it will probbly have to go to a helper page that does clean up and ends the session THEN go back to login.html -->
+
+
+</body>
+<html>
