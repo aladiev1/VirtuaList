@@ -1,70 +1,153 @@
-<!--Filename: Admin_View_Analytics
+﻿<!--Filename: Admin_View_Analytics
     HTML and CSS programmer: Anna Aladiev
     Backend programmer: -->
+<!-- COLORS USED IN DESIGN:
+         Black:         #000000
+         Red:           #E72223
+         Dark Red:      #8A0F0F
+         Yellow:        #FDC10E
+         Light Gray:    #F1F1F1
+         Lightest Gray: #F9F9F9
+         White:         #FFFFFF
+    -->
 
 <!DOCTYPE html>
 <html lang="en-us">
 
-<head>  
+<head>
     <meta charset="utf-8" />
     <title>Admin: View Analytics</title>
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js">
+    </script>
+    </script>
+    <![endif]-->
+
     <style>
         body {
-            background-color: rgb(80, 120, 140);
+            background-color: #FDC10E;
             font-size: 115%;
+            padding: 20px;
             text-align: center;
-            padding: 20px;
+            font-family: Verdana,sans-serif;
+            font-size: 22px;
         }
-        div {
-            background-color: white;
-            padding: 20px;
-        }
-        button {
-            background-color: rgb(110, 180, 50);
-            color: white;
-            padding: 10px 30px;
-        }
-        table, th {
-            border: 1px hidden;
+
+        header, footer {
             padding: 10px;
         }
-        table {
-            width: 300px;
+
+        section {
+            background-color: #FFFFFF;
+            font-size: 22px;
+            padding: 20px;
         }
+
+        /*nav ul {
+            padding: 0;
+        }
+
+        nav ul li {
+            display: inline;
+            margin: 5px;
+        }*/
+
+        .button {
+            border-radius: 4px;
+            background-color: #E72223;
+            border: none;
+            color: #FFFFFF;
+            text-align: center;
+            font-size: 20px;
+            padding: 20px;
+            width: 200px;
+            transition: all 0.5s;
+            cursor: pointer;
+            margin: 5px;
+        }
+
+            .button span {
+                cursor: pointer;
+                display: inline-block;
+                position: relative;
+                transition: 0.5s;
+            }
+
+                .button span:after {
+                    content: '\00bb';
+                    position: absolute;
+                    opacity: 0;
+                    top: 0;
+                    right: -20px;
+                    transition: 0.5s;
+                }
+
+            .button:hover span {
+                padding-right: 25px;
+            }
+
+                .button:hover span:after {
+                    opacity: 1;
+                    right: 0;
+                }
     </style>
 </head>
 
 <body>
-    <div>
-        <h1>Analytics</h1><hr /><br />
+    <header>
+        <h1 style="font-size: 75px;">Analytics</h1><hr />
+    </header>
 
-        <button>Read Student Feedback</button><br />
 
-        <!-- USER-SPECIFIED DATE CONSTRAINTS 
-           (TEXTBOXES WILL BE REPLACED WITH CALENDARS)-->
-        <center>
-            <table>
-                <tr>
-                    <th>From: <input type='text' name='fromDate' placeholder='12 May 2016' required></th>
-                    <th>To: <input type='text' name='toDate' placeholder='12 May 2016' required></th>
-                </tr>
-            </table>
-        </center><br />
-        <!-- 1) CONSTRAINTS (such as date range) ARE SENT TO DATABASE  
-             2) DATABASE RETURNS APPROPRIATE INFORMATION  
-             3) VISUAL REPRESENTATION OF DATA PRESENTED TO USER ... implementation depends on format of returned data
-           (MISSING IMPLEMENTATION) -->
+<!--<nav>
+    <ul>
+        <li>Analytics</li>
+        <li>Feedback</li>
+    </ul>
+</nav>-->
 
-        <!-- GRAPH #1 
-           (MISSING IMPLEMENTATION) -->
+
+    <section>
+        <!-- TRANSFERS USER TO Admin_View_Feedback PAGE (ON BUTTON CLICK)                                                                   <-- (MISSING IMPLEMENTATION) -->
+        <button class="button"><span>Read Student Feedback </span></button><br /><br />
+
+
+        <!-- USER CHOOSES DATE RANGE TO REQUEST ANALYTICS FOR -->
+        <form action="/action_page.php">
+            <!-- IS START DATE A REQUIRED FIELD? COULD THAT CHANGE IN THE FUTURE? HOW SHOULD WE DEAL WITH THAT?                                       <-- (Q?) -->
+            <span style="font-size: 24px;">From: </span>
+            <input type="date" name="start" min="2017-01-01" placeholder="2017-01-01" autofocus required><br />
+            <span style="font-size: 24px; padding: 10px;">To: </span>
+            <!-- IS END DATE IS A REQUIRED FIELD UNLESS WE CHOOSE TO AUTOMATICALLY FILL IT WITH THE CURRENT DATE?                                     <-- (Q?) -->
+            <input type="date" name="end" max="2017-12-31" placeholder="2017-12-31" required><br /><br />
+            <input class="button" type="reset" value="Reset" style="background-color: #8A0F0F; color: #FFFFFF; padding: 10px;">
+            <input class ="button" type="submit" style="background-color: #E72223; color: #FFFFFF; padding: 10px;"><br /><br />
+            <!-- CURRENT INPUT VALIDATION PROCESS CHECKS AGAINST MIN/MAX - IS THAT ENOUGH?                                                            <-- (Q?) -->
+        </form>
+        <!-- 1) DATE CONSTRAINTS ARE SENT TO DATABASE
+             2) DATABASE RETURNS REQUESTED DATA ... what format will the returned data be in and how will that affect our graphs/visuals?             <-- (Q?)
+             3) VISUAL REPRESENTATION OF ANALYTICS IS PRESENTED TO USER                                                                     <-- (MISSING IMPLEMENTATION) -->
+        <!-- ANALYTICS GRAPH #1                                                                                                             <-- (MISSING IMPLEMENTATION) -->
         <img src="temp_line_graph.png" alt="temporary line graph" width="700" height="399" /><br />
 
-        <!-- GRAPH #2 
-           (MISSING IMPLEMENTATION) -->
+        <!-- ANALYTICS GRAPH #2                                                                                                             <-- (MISSING IMPLEMENTATION) -->
         <img src="temp_pie_graph.png" alt="temporary pie graph" width="700" height="307" /><br />
 
-        <button>Log Out</button><br />
-    </div>
-</body>
 
+        <!-- TRANSFERS USER TO LOG OUT PAGE (ON BUTTON CLICK)                                                                               <-- (MISSING IMPLEMENTATION) -->
+        <button class="button"><span>Log Out</span></button><br />
+    </section>
+    <footer>
+        <p>VirtuaList</p>
+        <p>University of Maryland, Baltimore County</p>
+        <p>
+            Anna Aladiev: <a href="mailto:aladiev1@umbc.edu">aladiev1@umbc.edu</a><br />
+            John Brown: <a href="mailto:brownj2@umbc.edu">brownj2@umbc.edu</a><br />
+            Bernadeht Ebel: <a href="mailto:bebe3@umbc.edu">bebe3@umbc.edu</a><br />
+            Douglas Lueben: <a href="mailto:dlueben1@umbc.edu">dlueben1@umbc.edu</a><br />
+            Timothy Sholar: <a href="mailto:tsholar1@umbc.edu">tsholar1@umbc.edu</a><br />
+            Khadijah Wali: <a href="mailto:kwali2@umbc.edu">kwali2@umbc.edu</a><br />
+        </p>
+    </footer>
+</body>
 </html>
