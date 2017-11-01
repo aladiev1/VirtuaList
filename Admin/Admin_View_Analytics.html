@@ -1,0 +1,70 @@
+<!--Filename: Admin_View_Analytics
+    HTML and CSS programmer: Anna Aladiev
+    Backend programmer: -->
+
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>  
+    <meta charset="utf-8" />
+    <title>Admin: View Analytics</title>
+    <style>
+        body {
+            background-color: rgb(80, 120, 140);
+            font-size: 115%;
+            text-align: center;
+            padding: 20px;
+        }
+        div {
+            background-color: white;
+            padding: 20px;
+        }
+        button {
+            background-color: rgb(110, 180, 50);
+            color: white;
+            padding: 10px 30px;
+        }
+        table, th {
+            border: 1px hidden;
+            padding: 10px;
+        }
+        table {
+            width: 300px;
+        }
+    </style>
+</head>
+
+<body>
+    <div>
+        <h1>Analytics</h1><hr /><br />
+
+        <button>Read Student Feedback</button><br />
+
+        <!-- USER-SPECIFIED DATE CONSTRAINTS 
+           (TEXTBOXES WILL BE REPLACED WITH CALENDARS)-->
+        <center>
+            <table>
+                <tr>
+                    <th>From: <input type='text' name='fromDate' placeholder='12 May 2016' required></th>
+                    <th>To: <input type='text' name='toDate' placeholder='12 May 2016' required></th>
+                </tr>
+            </table>
+        </center><br />
+        <!-- 1) CONSTRAINTS (such as date range) ARE SENT TO DATABASE  
+             2) DATABASE RETURNS APPROPRIATE INFORMATION  
+             3) VISUAL REPRESENTATION OF DATA PRESENTED TO USER ... implementation depends on format of returned data
+           (MISSING IMPLEMENTATION) -->
+
+        <!-- GRAPH #1 
+           (MISSING IMPLEMENTATION) -->
+        <img src="temp_line_graph.png" alt="temporary line graph" width="700" height="399" /><br />
+
+        <!-- GRAPH #2 
+           (MISSING IMPLEMENTATION) -->
+        <img src="temp_pie_graph.png" alt="temporary pie graph" width="700" height="307" /><br />
+
+        <button>Log Out</button><br />
+    </div>
+</body>
+
+</html>

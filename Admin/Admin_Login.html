@@ -1,0 +1,37 @@
+<!--Filename: Login.html
+    HTML and CSS programmer: Khadijah Wali
+    Backend programmer: -->
+
+<html>
+<head>
+<title>Log in</title>
+</head>
+<body>
+
+<center>
+<!--Change action to whatever webpage name you're using-->
+<!--ProcessLogin will loop back to here if password or username is not properly verified
+ If it is verified, go to the appropiate starter page-->
+<form action='ProcessLogin.php' method='post' name='Login'>
+
+    <!--I should have php code from a previous project that can verify this is a UMBC email.
+        Ask me and I'll try to find it-->
+    UMBC Email:<br>
+    <input type='text' name='email' placeholder='Eg. JSmith.umbc.edu' required><p>
+
+    <!--this simply makes the characters show up as stars and is not truly secure-->
+    Password:<br>
+    <input type='password' name='password' required><p>  
+
+
+    <button type='submit' >LOG IN</button>    
+</form>
+
+<form action='Waitlist.html' method='post'>
+    <button type='submit'>View Waitlist</button>
+</form>
+
+</center>
+
+</body>
+<html>
