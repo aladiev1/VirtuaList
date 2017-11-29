@@ -1,0 +1,216 @@
+﻿<!--
+    FILENAME:                    AdminFeedback.html
+    ORIGINAL FRONT-END AUTHOR:   Anna Aladiev
+    ORIGINAL BACK-END AUTHOR:
+-->
+<!--
+    COLORS USED IN DESIGN:
+        Black:         #000000
+        Red:           #E72223
+        Dark Red:      #8A0F0F
+        Yellow:        #FDC10E
+        Light Gray:    #F1F1F1
+        Lightest Gray: #F9F9F9
+        White:         #FFFFFF
+-->
+<!--
+    DROPDOWN NAVBAR CODE FROM: https://www.w3schools.com/howto/howto_css_dropdown_navbar.asp
+-->
+
+
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+    <meta charset="utf-8" />
+    <title>Admin: View Feedback</title>
+    <link rel="stylesheet" href="Admin.css">
+    <style>
+        body {
+            background-color: #FDC10E;
+            font-size: 115%;
+            padding: 20px;
+            text-align: center;
+        }
+
+        div {
+            background-color: #FFFFFF;
+            padding: 20px;
+        }
+
+        button {
+            background-color: #E72223;
+            color: #FFFFFF;
+            padding: 10px 30px;
+        }
+
+        table {
+            width: 100%;
+            border: 1px solid;
+            text-align: left;
+        }
+
+        th {
+            padding: 15px;
+            text-align: left;
+        }
+
+        td {
+            border-bottom: 1px solid;
+            padding: 15px;
+        }
+
+        .dropbtn {
+            background-color: #E72223;
+            color: #FFFFFF;
+            padding: 16px;
+            font-size: 16px;
+            border: none;
+            cursor: pointer;
+        }
+
+            .dropbtn:hover, .dropbtn:focus {
+                background-color: #8A0F0F;
+            }
+
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #F9F9F9;
+            min-width: 160px;
+            overflow: auto;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+            z-index: 1;
+        }
+
+            .dropdown-content a {
+                color: black;
+                padding: 12px 16px;
+                text-decoration: none;
+                display: block;
+            }
+
+        .dropdown a:hover {
+            background-color: #F1F1F1
+        }
+
+        .show {
+            display: block;
+        }
+    </style>
+</head>
+
+<body>
+    <div>
+        <h1>Feedback</h1><hr /><br />
+
+        <!-- BUTTON LINKS TO AdminAnalytics page
+           (MISSING IMPLEMENTATION)-->
+        <button>View Student Activity</button><br />
+
+        <!-- GRAPH #3
+           (MISSING IMPLEMENTATION) -->
+        <img src="temp_bar_graph.png" alt="temporary bar graph" width="700" height="525" /><br />
+
+        <h2>Detailed Reviews</h2><hr /><br />
+
+        <div class="dropdown">
+            <button onclick="myFunction()" class="dropbtn">See Reviews from...</button>
+            <div id="myDropdown" class="dropdown-content">
+                <a href="#week">Past week</a>
+                <a href="#month">Past month</a>
+                <a href="#6months">Past 6 months</a>
+                <a href="#year">Past year</a>
+                <a href="#beginning">The beginning of time</a>
+            </div>
+        </div><br />
+
+        <!--<form action="/action_page.php">
+            <input list="times" name="time" />
+            <datalist id="times">
+                <option value="week" selected>Past week</option>
+                <option value="month">Past month</option>
+                <option value="6months">Past 6 months</option>
+                <option value="year">Past year</option>
+                <option value="beginning">The beginning of time</option>
+            </datalist>
+            <input type="submit">
+        </form>-->
+
+
+        <script>
+            /* TOGGLE BETWEEN HIDING/SHOWING DROPDOWN CONTENT WHENEVER BUTTON IS CLICKED */
+            function myFunction() {
+                document.getElementById("myDropdown").classList.toggle("show");
+            }
+
+            /* DROPDOWN CLOSES IF CLICKED OUTSIDE OF IT */
+            window.onclick = function (event) {
+                if (!event.target.matches('.dropbtn')) {
+
+                    var dropdowns = document.getElementsByClassName("dropdown-content");
+                    var i;
+                    for (i = 0; i < dropdowns.length; i++) {
+                        var openDropdown = dropdowns[i];
+                        if (openDropdown.classList.contains('show')) {
+                            openDropdown.classList.remove('show');
+                        }
+                    }
+                }
+            }
+        </script>
+
+
+        <br /><center>
+            <div style="height: 300px; width: 90%; border: 1px solid; text-align: left; overflow: auto;">
+                <table>
+                    <tr>
+                        <!-- STUDENT'S EXPLANATION -->
+                        <th colspan="2">The TA who helped me was very helpful and knowledgeable. He walked through with me step by step and made sure I understood the concepts, not how to complete the project.</th>
+                    </tr>
+                    <tr>
+                        <!-- STUDENT'S REVIEW OF TA -->
+                        <td>THIS STUDENT'S REVIEW: Completely Satisfied</td>
+                        <!-- DATE SUBMITTED -->
+                        <td style="text-align: right;"> DATE SUBMITTED: 10/12/17</td>
+                    </tr>
+                    <tr>
+                        <th colspan="2">My tutor was smart, but he was rushing me because they were busy. He was going over his explanations too quickly for me to follow, and I didn't learn much.</th>
+                    </tr>
+                    <tr>
+                        <td>THIS STUDENT'S REVIEW: Somewhat Dissatisfied</td>
+                        <td style="text-align: right;"> DATE SUBMITTED: 9/20/17</td>
+                    </tr>
+                </table>
+            </div>
+        </center><br />
+
+
+
+
+
+        <!-- BUTTON TO LOG OUT
+           (MISSING IMPLEMENTATION)-->
+        <button style="text-align: right;">Log Out</button><br />
+    </div>
+
+
+    <footer>
+        <p>VirtuaList</p>
+        <p>University of Maryland, Baltimore County</p>
+        <p>
+            Anna Aladiev: <a href="mailto:aladiev1@umbc.edu">aladiev1@umbc.edu</a><br />
+            John Brown: <a href="mailto:brownj2@umbc.edu">brownj2@umbc.edu</a><br />
+            Bernadeht Ebel: <a href="mailto:bebe3@umbc.edu">bebe3@umbc.edu</a><br />
+            Douglas Lueben: <a href="mailto:dlueben1@umbc.edu">dlueben1@umbc.edu</a><br />
+            Timothy Sholar: <a href="mailto:tsholar1@umbc.edu">tsholar1@umbc.edu</a><br />
+            Khadijah Wali: <a href="mailto:kwali2@umbc.edu">kwali2@umbc.edu</a><br />
+        </p>
+    </footer>
+</body>
+</html>
