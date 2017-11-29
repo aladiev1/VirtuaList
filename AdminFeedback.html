@@ -1,15 +1,21 @@
-﻿<!--Filename: Admin_View_Feedback
-    HTML and CSS programmer: Anna Aladiev
-    Backend programmer: -->
-<!-- COLORS USED IN DESIGN:
-         Black:         #000000
-         Red:           #E72223
-         Dark Red:      #8A0F0F
-         Yellow:        #FDC10E
-         Light Gray:    #F1F1F1
-         Lightest Gray: #F9F9F9
-         White:         #FFFFFF
-     DROPDOWN NAVBAR CODE FROM: https://www.w3schools.com/howto/howto_css_dropdown_navbar.asp -->
+﻿<!--
+    FILENAME:                    AdminFeedback.html
+    ORIGINAL FRONT-END AUTHOR:   Anna Aladiev
+    ORIGINAL BACK-END AUTHOR:
+-->
+<!--
+    COLORS USED IN DESIGN:
+        Black:         #000000
+        Red:           #E72223
+        Dark Red:      #8A0F0F
+        Yellow:        #FDC10E
+        Light Gray:    #F1F1F1
+        Lightest Gray: #F9F9F9
+        White:         #FFFFFF
+-->
+<!--
+    DROPDOWN NAVBAR CODE FROM: https://www.w3schools.com/howto/howto_css_dropdown_navbar.asp
+-->
 
 
 <!DOCTYPE html>
@@ -18,6 +24,7 @@
 <head>
     <meta charset="utf-8" />
     <title>Admin: View Feedback</title>
+    <link rel="stylesheet" href="Admin.css">
     <style>
         body {
             background-color: #FDC10E;
@@ -102,7 +109,7 @@
     <div>
         <h1>Feedback</h1><hr /><br />
 
-        <!-- BUTTON LINKS TO Admin_View_Analytics page
+        <!-- BUTTON LINKS TO AdminAnalytics page
            (MISSING IMPLEMENTATION)-->
         <button>View Student Activity</button><br />
 
@@ -111,7 +118,6 @@
         <img src="temp_bar_graph.png" alt="temporary bar graph" width="700" height="525" /><br />
 
         <h2>Detailed Reviews</h2><hr /><br />
-
 
         <div class="dropdown">
             <button onclick="myFunction()" class="dropbtn">See Reviews from...</button>
@@ -124,7 +130,7 @@
             </div>
         </div><br />
 
-        <form action="/action_page.php">
+        <!--<form action="/action_page.php">
             <input list="times" name="time" />
             <datalist id="times">
                 <option value="week" selected>Past week</option>
@@ -134,22 +140,7 @@
                 <option value="beginning">The beginning of time</option>
             </datalist>
             <input type="submit">
-        </form>
-
-
-        <form action="/action_page.php"
-              oninput="x.value=parseInt(a.value)+parseInt(b.value)">
-            0
-            <input type="range" id="a" name="a" value="50">
-            100 +
-            <input type="number" id="b" name="b" value="50">
-            =
-            <output name="x" for="a b"></output>
-            <br><br>
-            <input type="submit">
-        </form>
-
-        <!--<button type="button" onclick="alert('Hello World!')">Click Me!</button>-->
+        </form>-->
 
 
         <script>
