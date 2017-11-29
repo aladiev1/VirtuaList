@@ -1,6 +1,5 @@
 <!--Filename: join_list.php
-    HTML and CSS programmer: Khadijah Wali
-    Backend programmer: Doug Leuben-->
+    Join list allows students to add themselves to the waitlist-->
 
 <!-- Start user session -->
 <?php
@@ -120,7 +119,6 @@ button {
 </form>
 
 <!--Have the following content left aligned (not currently working for some reason?)-->
-<!--<div class="enter">-->
 <hr>
 <!-- Join Waitlist form -->
 <form action="joined_list.php" method="post">
@@ -157,7 +155,6 @@ Topic:<br>
 <button type='submit'> Enter Waitlist! </button>
 
 </form>
-<!--</div> <!--Close enter div-->
 </div> <!--Close bord div-->
 
 </body>

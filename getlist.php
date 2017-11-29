@@ -32,7 +32,21 @@ if($fetchData->num_rows > 0)
 {
 	//Print the beginning of a table
 	echo "<table>";
+  
+  echo "<tr>";
+  
+  //print headers for table
+  echo "<td id='email'>" . "Email" . "</td>";
+  echo "<td id='topic'>" . "Topic" . "</td>";
+  echo "<td id='EnterTime'>" . "Enter Time" . "</td>";
+  
+  echo "</tr>";
 
+  //NOTE: here you would check to see if there's any data
+  //if so print the row with the same format as below 
+  //except with an extra tag for the first guy in the list
+  //and then enter this loop
+  
 	while($row = mysqli_fetch_assoc($fetchData))
 	{
 		/* IMPORTANT: You can rearrange these elements in CSS */
@@ -51,6 +65,7 @@ if($fetchData->num_rows > 0)
 		
 		//Print the Enter Time
 		echo "<td id='EnterTime'>" . $row["EnterTime"] . "</td>";
+    
 		
 		//End the row
 		echo "</tr>";

@@ -21,6 +21,73 @@ if(session_id() == '' || !isset($_SESSION))
 <html>
 
 <head>
+<style>
+
+<!--White block of page-->
+div.bord {
+    border-style: solid;
+    border-width: 1px;
+    border-radius: 5px;
+    background: #fafafa;
+    width:70%;
+    height:80%;
+    text-align: center;
+    margin: auto;
+    
+}
+
+<!--yellow background-->
+body {
+    background-color: #f5ca5c;
+    font-family: verdana;
+    font-size: 15px;
+    white-space:no-wrap;
+}
+
+<!--left aligning stuff inside border-->
+div.enter {
+  display: inline-block;
+  text-align: left;
+  float: left;
+  position: relative;
+  padding: 8px 30px;
+}
+
+<!--Green buttons and dropdowns-->
+button, select {
+    background-color: #66aa44; /* Green */
+    border: none;
+    color: white;
+    padding: 8px 30px;
+    text-align: center;
+    display: inline-block;
+    font-size: 16px;
+    border-radius: 5px;
+    white-space:normal; 
+}
+
+
+<!--formatting of table-->
+ table {
+            width: 95%;
+            border: 1px solid;
+            text-align: left;
+            margin: auto;
+        }
+
+        th {
+            padding: 15px;
+            text-align: left;
+        }
+
+        td {
+            border-bottom: 1px solid;
+            padding: 10px;
+            background: white;
+            
+            <!--NOTE: here there should be special formatting for a specific tag only the first item in the list has-->
+        }
+</style>
 
 <!-- Page title -->
 <title>ITE 240 Waitlist</title>
@@ -87,34 +154,39 @@ window.onload = function()
 
 <body>
 <!--Header for webpage--> 
-<center>
+<!--Center content and surround it in white box-->
+<div class="bord">
+
 <h2>Waitlist</h2>
-</center>
+
 
 <!-- Class Dropdown -->
 <!-- Classes are stored as single digit values, to save SQL server space
 	(vs. storing the whole class name "CMSC202") -->
-  Select which class to view:<br>
+  <div class="enter">
+  <h3>Select which class to view:</h3>
+
 <select name="classSelector" onchange="GetWaitlist()">
 	<option value="1">CMSC201</option>
 	<option value="2">CMSC202</option>
 	<option value="3">CMSC341</option>
 </select>
-
+</div>
 <!-- Line Break -->
 <p>
 
-<!--May discard this if it doesn't work. But once CSS is implemented these will be headers for the table-->
-Student           Topic           Enter Time
 <!-- This is where the waitlist will go -->
 <div id='waitlist'></div>
 
 <!-- Line Break -->
 <br />
 <!--Take student back to sign in page-->
+<div class="enter">
 <form action='index.php' method='post'>
 <button type='submit'>Return to Login</button>
 </form>
+</div>
+</div>
 </body>
 
 </html>
