@@ -7,8 +7,10 @@
 
 <!-- Header -->
 <head>
-<style>
+<meta charset="utf-8" />
+<link rel="stylesheet" href="style2.css">
 
+<!--
 div.bord {
     border-style: solid;
     border-width: 1px;
@@ -38,8 +40,8 @@ button {
     border-radius: 5px;
     white-space:normal; 
 }
+-->
 
-</style>
 
 <!-- Page title -->
 <title>ITE 240 Waitlist</title>
@@ -96,13 +98,16 @@ function onSignOut()
 <!--Center content and surround it in white box-->
 <div class="bord">
 
+<div class="section">
 <img src="logo.png" alt="Logo Goes here">
-<p>
+</div>
 
 <!-- Sign in button -->
+<div class="section">
 <center> <!--Extra center tag because this button doesn't center by itself-->
 <div class="g-signin2" data-onsuccess="onSignIn"></div>
 </center>
+</div>
 
 <!-- Khadijah: Remember that PHP is ALWAYS executed before JavaScript.
 	This is because PHP runs on the server before the client ever gets
@@ -118,9 +123,11 @@ function onSignOut()
 	<input type="hidden" name="userName" id="userName" value="" />
 </form>
 
+<div class="section">
 <form action='waitlist.php' method='post'>
-    <button type='submit'>View Waitlist</button>
+<button type='submit'>View Waitlist</button>
 </form>
 </div>
+
 </body>
 </html>
