@@ -42,7 +42,6 @@ button {
 }
 -->
 
-
 <!-- Page title -->
 <title>ITE 240 Waitlist</title>
 
@@ -99,7 +98,7 @@ function onSignOut()
 <div class="bord">
 
 <div class="section">
-<img src="logo.png" alt="Logo Goes here">
+<img src="logo.png" alt="LOGO GOES HERE">
 </div>
 
 <!-- Sign in button -->
