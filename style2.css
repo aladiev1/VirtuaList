@@ -1,0 +1,52 @@
+/*
+    ONE OPTION FOR THE GENERAL STYLE SHEET
+
+    FILENAME:          style2.css
+    ORIGINAL AUTHOR:   Anna Aladiev
+
+    COLORS USED IN DESIGN:
+        Black:         #000000
+        Dark Red:      #8A0F0F
+        Red:           #E72223
+        Yellow:        #FDC10E
+        Green:         #66AA44
+        Light Gray:    #F1F1F1
+        Lightest Gray: #F9F9F9
+        White:         #FFFFFF
+*/
+
+body {
+    background-color: #FDC10E;
+    color: #000000;
+    font-family: verdana;
+    font-size: 20px;
+    text-align: center;
+    margin: 1%;
+}
+
+div.bord {
+    background-color: #FFFFFF;
+    border-radius: 5px;
+    padding: 1%;
+    margin: 2%;
+}
+
+div.section {
+    padding: 1%;
+    margin: 1%;
+    background-color: #F9F9F9; 
+}
+
+form {
+    padding: 1%;
+    margin: 1%;
+}
+
+[type=submit] {
+    background-color: #66AA44;
+    color: #FFFFFF;
+    font-size: 100%;
+    width: 25%;
+    border-radius: 5px;
+    padding: 1%;
+}
