@@ -20,10 +20,20 @@ if(session_id() == '' || !isset($_SESSION))
 <!-- The Waitlist -->
 <html>
 
+<!-- Header -->
 <head>
-<style>
+<meta charset="utf-8" />
 
-<!--White block of page-->
+<!-- Page title -->
+<title>ITE 240 Waitlist</title>
+
+<link rel="stylesheet" href="style2.css">
+
+<!--
+
+<!--
+<style>
+/* white block of page */
 div.bord {
     border-style: solid;
     border-width: 1px;
@@ -36,7 +46,7 @@ div.bord {
     
 }
 
-<!--yellow background-->
+/* yellow background */
 body {
     background-color: #f5ca5c;
     font-family: verdana;
@@ -44,7 +54,7 @@ body {
     white-space:no-wrap;
 }
 
-<!--left aligning stuff inside border-->
+/* left aligning stuff inside border */
 div.enter {
   display: inline-block;
   text-align: left;
@@ -53,7 +63,7 @@ div.enter {
   padding: 8px 30px;
 }
 
-<!--Green buttons and dropdowns-->
+/* Green buttons and dropdowns */
 button, select {
     background-color: #66aa44; /* Green */
     border: none;
@@ -66,8 +76,7 @@ button, select {
     white-space:normal; 
 }
 
-
-<!--formatting of table-->
+/* formatting of table */
  table {
             width: 95%;
             border: 1px solid;
@@ -85,12 +94,12 @@ button, select {
             padding: 10px;
             background: white;
             
-            <!--NOTE: here there should be special formatting for a specific tag only the first item in the list has-->
+			/* NOTE: here there should be special formatting for a specific tag only the first item in the list has */
         }
 </style>
+-->
 
-<!-- Page title -->
-<title>ITE 240 Waitlist</title>
+</head>
 
 <!-- Declaring a function to pull from the waitlist -->
 <script type="text/javascript">
@@ -176,7 +185,9 @@ window.onload = function()
 <p>
 
 <!-- This is where the waitlist will go -->
+<div class="section">
 <div id='waitlist'></div>
+</div>
 
 <!-- Line Break -->
 <br />

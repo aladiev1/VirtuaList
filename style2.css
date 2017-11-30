@@ -25,7 +25,7 @@ body {
 }
 
 div.bord {
-    background-color: #FFFFFF;
+    background-color: #F9F9F9;
     border: solid 1px #000000;
     border-radius: 5px;
     padding: 1%;
@@ -34,8 +34,7 @@ div.bord {
 
 div.section {
     padding: 1%;
-    margin: 1%;
-    background-color: #F9F9F9; 
+    margin: 1%; 
 }
 
 form {
@@ -43,11 +42,40 @@ form {
     margin: 1%;
 }
 
-[type=submit] {
+[type=submit]{
+    background-color: #66AA44;
+    color: #FFFFFF;
+    font-size: 100%;
+    width: 50%;
+    border-radius: 5px;
+    padding: 1%;
+}
+
+select {
     background-color: #66AA44;
     color: #FFFFFF;
     font-size: 100%;
     width: 25%;
     border-radius: 5px;
     padding: 1%;
+}
+
+table {
+    width: 95%;
+    border: 1px solid;
+    text-align: left;
+    margin: auto;
+}
+
+th {
+    padding: 15px;
+    text-align: left;
+    background: #ffd800;
+}
+
+td {
+    border-bottom: 1px solid;
+    padding: 10px;
+    background: white;
+    /* NOTE: here there should be special formatting for a specific tag only the first item in the list has */
 }

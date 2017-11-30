@@ -8,9 +8,14 @@
 <!-- Header -->
 <head>
 <meta charset="utf-8" />
+
+<!-- Page title -->
+<title>ITE 240 Waitlist</title>
+
 <link rel="stylesheet" href="style2.css">
 
 <!--
+<style>
 div.bord {
     border-style: solid;
     border-width: 1px;
@@ -40,10 +45,10 @@ button {
     border-radius: 5px;
     white-space:normal; 
 }
+</style>
 -->
 
-<!-- Page title -->
-<title>ITE 240 Waitlist</title>
+</head>
 
 <!-- Google API (for UMBC Sign in) -->
 <script src="https://apis.google.com/js/platform.js" async defer></script>
