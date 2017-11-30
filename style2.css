@@ -26,6 +26,7 @@ body {
 
 div.bord {
     background-color: #FFFFFF;
+    border: solid 1px #000000;
     border-radius: 5px;
     padding: 1%;
     margin: 2%;
