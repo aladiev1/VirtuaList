@@ -27,7 +27,7 @@ if(session_id() == '' || !isset($_SESSION))
 <!-- Page title -->
 <title>ITE 240 Waitlist</title>
 
-<link rel="stylesheet" href="style2.css">
+<link rel="stylesheet" href="style_general.css">
 
 <!--
 

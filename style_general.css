@@ -1,0 +1,87 @@
+/*
+    GENERAL STYLE SHEET
+
+    FILENAME:          style_general.css
+    ORIGINAL AUTHOR:   Anna Aladiev
+
+    COLORS USED IN DESIGN:
+        Black:         #000000
+        Dark Red:      #8A0F0F
+        Red:           #E72223
+        Yellow:        #FDC10E
+        Green:         #66AA44
+        Light Gray:    #F1F1F1
+        Lightest Gray: #F9F9F9
+        White:         #FFFFFF
+*/
+
+body {
+    background-color: #FDC10E;
+    color: #000000;
+    font-family: verdana;
+    font-size: 20px;
+    text-align: center;
+    margin: 1%;
+}
+
+/*  */
+div.bord {
+    background-color: #F9F9F9;
+    border: solid 1px #000000;
+    border-radius: 5px;
+    padding: 1%;
+    margin: 2%;
+}
+
+div.section {
+    padding: 1%;
+    margin: 1%; 
+}
+
+form {
+    padding: 1%;
+    margin: 1%;
+}
+
+/* joining/viewing waitlist */
+[type=submit] {
+    background-color: #66AA44;
+    color: #FFFFFF;
+    font-size: 100%;
+    width: 50%;
+    border-radius: 5px;
+    padding: 1%;
+}
+
+/* class selection */
+select {
+    background-color: #66AA44;
+    color: #FFFFFF;
+    font-size: 100%;
+    width: 25%;
+    border-radius: 5px;
+    padding: 1%;
+}
+
+/* waitlist */
+table {
+    width: 95%;
+    border: 1px solid;
+    text-align: left;
+    margin: auto;
+}
+
+/* waitlist table header */
+th {
+    padding: 15px;
+    text-align: left;
+    background: #ffd800;
+}
+
+/* waitlist table rows */
+td {
+    border-bottom: 1px solid;
+    padding: 10px;
+    background: white;
+    /* NOTE: here there should be special formatting for a specific tag only the first item in the list has */
+}
