@@ -695,8 +695,6 @@ function updateVisitFrequencyGraph(div, tableId, url) {
 
 			var res = this.responseText.trim();
 
-			console.log(res);
-
 			var resArr = res.split("\n");
 
 			var issues = [];
@@ -912,13 +910,11 @@ function updateWaitTimeGraph(tableId, url) {
 
 			document.getElementById(tableId).innerHTML = table;
 
-			console.log(issues);
-			// return;
-
 			var totals = [0, 0];
 			var num = 0;
 
-			for(var i = 0; i < issues.length; i++) if(issues[i]["TA_HelpBegin"] != null && issues[i]["TA_HelpBegin"] != "null")  {
+			for(var i = 0; i < issues.length; i++) if(issues[i]["TA_HelpBegin"] != null && issues[i]["TA_HelpBegin"] != "null" &&
+													  issues[i]["EndTime"] != null && issues[i]["EndTime"] != "null")  {
 
 				var start = new Date(issues[i]["EnterTime"]);
 				var help = new Date(issues[i]["TA_HelpBegin"]);
@@ -971,9 +967,7 @@ function newVisual()
 }
 
 function onEnterStudentFrequency(e, id) {
-	console.log(e);
 	if(e.key == "Enter")
-//		updateVisitFrequencyGraph('studentLookupResults', 'studentLookupTable', 'searchforfrequency.php?student='+document.getElementById('studentSearch').value+'&entertime='+encodeURIComponent(GetEnterTime())+'&exittime='+encodeURIComponent(GetExitTime())+'&lookupmode=student');
 		document.getElementById(id).onclick();
 }
 

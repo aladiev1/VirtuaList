@@ -86,8 +86,12 @@ if($fetchData->num_rows > 0)
 		echo "<td id='sl_exitTime'>" . $row["EndTime"] . "</td>";
 	
 		//Print Duration
-		$duration = $enterTime->diff($endTime)->format('%hh %im');
-		echo "<td id='sl_duration'>" . $duration . "</td>";
+		if(is_null($row["EndTime"])) {
+			echo "<td id='sl_duration'></td>";
+		} else {
+			$duration = $enterTime->diff($endTime)->format('%hh %im');
+			echo "<td id='sl_duration'>" . $duration . "</td>";
+		}
 		
 		//Print Topic
 		echo "<td id='sl_topic'>" . $row["Topic"] . "</td>";
