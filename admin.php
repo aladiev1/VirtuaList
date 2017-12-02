@@ -159,6 +159,11 @@ td
 
 }
 
+.line-graph.circle {
+	r: 4;
+	stroke-width: 0;
+}
+
 .line-graph.x-axis {
 
 }
@@ -432,11 +437,11 @@ function drawLine(data, graph, xScale, yScale, color) {
 
 	for(var i = 0; i < data.length; i++) {
 		if(data[i][1] != 0) graph.append("circle")
-			.attr("class", "graph-element")
+			.attr("class", "line-graph circle")
 			.attr("cx", xScale(new Date(data[i][0]).setHours(0)))
 			.attr("cy", yScale(data[i][1]))
-			.attr("r", 5)
-			.attr('stroke-width', 0)
+			// .attr("r", 5)
+			// .attr('stroke-width', 0)
 			.attr("fill", color);
 	}
 }
