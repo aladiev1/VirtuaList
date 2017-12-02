@@ -30,8 +30,16 @@ if($mySQL->connect_error)
 
 //Request the Waitlist
 $query = "SELECT * FROM pastissues WHERE (";
-$query = $query . (($_GET["lookupmode"] == "student") ? ("StudentEmail") : ("TA_ID"));
-$query = $query . " = '" . $_GET["student"] . "') AND (EnterTime < '" . $_GET["exittime"] . "') AND (EnterTime > '" . $_GET["entertime"] . "') ORDER BY EnterTime DESC";
+
+if($_GET["student"] == "") {
+	$query = $query . "EnterTime < '" . $_GET["exittime"] . "') AND (EnterTime > '" . $_GET["entertime"] . "') ORDER BY EnterTime DESC";
+} else {
+	$query = $query . (($_GET["lookupmode"] == "student") ? ("StudentEmail") : ("TA_ID"));
+	$query = $query . " = '" . $_GET["student"] . "') AND (EnterTime < '" . $_GET["exittime"] . "') AND (EnterTime > '" . $_GET["entertime"] . "') ORDER BY EnterTime DESC";
+}
+// if($_GET["student"] == "") {
+// 	$query = "EnterTime < '" . $_GET["exittime"] . "') AND (EnterTime > '" . $_GET["entertime"] . "') ORDER BY EnterTime DESC";
+// } 
 
 //Fetch the Data
 $fetchData = $mySQL->query($query);

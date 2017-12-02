@@ -156,7 +156,8 @@ td
 }
 
 .line-graph.path {
-
+	stroke-width: 2;
+	fill-opacity: 0;
 }
 
 .line-graph.circle {
@@ -432,8 +433,8 @@ function drawLine(data, graph, xScale, yScale, color) {
 		.attr("d", poly)
 		// .attr("stroke-opacity", 1)
 		.attr("stroke", color)
-		.attr("stroke-width", 2)
-		.attr("fill-opacity", 0);
+		// .attr("stroke-width", 2)
+		// .attr("fill-opacity", 0);
 
 	for(var i = 0; i < data.length; i++) {
 		if(data[i][1] != 0) graph.append("circle")
@@ -595,6 +596,8 @@ function updateVisitFrequencyGraph(div, tableId, url) {
 			root.innerHTML = "";
 
 			var res = this.responseText.trim();
+
+			console.log(res);
 
 			var resArr = res.split("\n");
 
@@ -867,7 +870,7 @@ onclick="updateVisitFrequencyGraph('taLookupResults', 'taLookupTable', 'searchfo
 <div id="reasonForVisit" style="display:none;">
 
 <center>
-<input id="getReasonsButton" type="button" value="Search by E-Mail:" 
+<input id="getReasonsButton" type="button" value="Search by Student E-Mail:" 
 onclick="updateVisitReasonGraph('searchforreason.php?student='+document.getElementById('visitSearch').value+'&entertime='+encodeURIComponent(GetEnterTime())+'&exittime='+encodeURIComponent(GetExitTime())+'&lookupmode=student')" id="searchButton"/>
 <input type="text" id="visitSearch" onkeypress="onEnterStudentFrequency(event, 'getReasonsButton')"/>
 </center>
