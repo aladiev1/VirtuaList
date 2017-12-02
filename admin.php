@@ -105,7 +105,7 @@ input[type=button], select
 /* Student Lookup */
 
 /* Student Searchbar */
-#studentSearch, #taSearch, #visitSearch
+#studentSearch, #taSearch, #visitSearch, #waitSearch
 {
 	/* Size */
 	width: 20em;
@@ -179,6 +179,23 @@ td
 
 .pie-chart.label {
 	font-size: 20;
+	font-weight: bolder;
+}
+
+.percent-bar.rect {
+	rx: 6;
+	ry: 6;
+}
+
+.percent-bar.rect.left {
+	fill: red;
+}
+
+.percent-bar.rect.right {
+	fill: blue;
+}
+
+.percent-bar.label.title {
 	font-weight: bolder;
 }
 
@@ -447,6 +464,87 @@ function drawLine(data, graph, xScale, yScale, color) {
 	}
 }
 
+function drawPercentBar(divName, data) { //https://bl.ocks.org/mbostock/3887235
+
+	var displayWidth = $(divName).width();
+	var displayHeight = $(divName).height();
+
+	var graphWidth = displayWidth// - yAxisWidth;
+	var graphHeight = displayHeight// - xAxisHeight;
+
+	var barHeight = graphHeight / 4;
+	var barWidth = graphWidth * .9;
+
+	var graphDisplayPort = d3.select(divName).append("svg")
+			.attr('width', graphWidth)
+			.attr('height', graphHeight)
+		.append("g");
+
+	var splitScale = d3.scale.linear()
+		.domain([0, 1])
+		.range([0, barWidth]);
+
+	var split = splitScale(data[0] / (data[0] + data[1]))
+
+	graphDisplayPort.append("rect")
+		.attr("class", "percent-bar rect left")
+		.attr("width", split - 4)
+		.attr("height", barHeight)
+		.attr("transform", "translate(" + ((graphWidth - barWidth) / 2) + "," + graphHeight / 4 + ")");
+
+	graphDisplayPort.append("rect")
+		.attr("class", "percent-bar rect right")
+		.attr("x", split + 4)
+		.attr("width", (barWidth - split))
+		.attr("height", barHeight)
+		.attr("transform", "translate(" + ((graphWidth - barWidth) / 2) + "," + graphHeight / 4 + ")");
+
+	graphDisplayPort.append("text")
+		.attr("class", "no-select percent-bar label title")
+		.text("Avg. Wait Time")
+		.attr("x", function(d) {
+			return (graphWidth / 3) - (this.getComputedTextLength() / 2);
+		})
+		.attr("y", graphHeight * 0.75)
+
+	graphDisplayPort.append("text")
+		.attr("class", "no-select percent-bar label value")
+		.text(function() {
+
+			var time = data[0];
+
+			str = Math.floor(time / (1000 * 60)) + " minutes";
+
+			return str;
+		})
+		.attr("x", function(d) {
+			return (graphWidth / 3) - (this.getComputedTextLength() / 2);
+		})
+		.attr("y", (graphHeight * 0.75) + 20)
+
+	graphDisplayPort.append("text")
+		.attr("class", "no-select percent-bar label title")
+		.text("Avg. Help Duration")
+		.attr("x", function(d) {
+			return ((graphWidth / 3) * 2) - (this.getComputedTextLength() / 2);
+		})
+		.attr("y", graphHeight * 0.75)
+
+	graphDisplayPort.append("text")
+		.attr("class", "no-select percent-bar label value")
+		.text(function() {
+			var time = data[1];
+
+			str = Math.floor(time / (1000 * 60)) + " minutes";
+
+			return str;
+		})
+		.attr("x", function(d) {
+			return ((graphWidth / 3) * 2) - (this.getComputedTextLength() / 2);
+		})
+		.attr("y", (graphHeight * 0.75) + 20)
+}
+
 /* Sets the "From" and "To" section to,
 roughly, the current semester's timespan */
 function SetCurrentSemester()
@@ -691,7 +789,7 @@ function updateVisitFrequencyGraph(div, tableId, url) {
 	myRequest.send();
 }
 
-function updateVisitReasonGraph(url) {
+function updateVisitReasonGraph(tableId, url) {
 
 	var root = document.getElementById("visitResults");
 
@@ -722,9 +820,17 @@ function updateVisitReasonGraph(url) {
 
 			var issues = [];
 
-			for(var i = 0; i < resArr.length; i++)
+			var table = "";
+
+			for(var i = 0; i < resArr.length; i++) {
 				if(resArr[i][0] == "{")
 					issues.push(JSON.parse(resArr[i]));
+				else {
+					table += resArr[i];
+				}
+			}
+
+			document.getElementById(tableId).innerHTML = table;
 
 			var data = [];
 
@@ -751,6 +857,87 @@ function updateVisitReasonGraph(url) {
 				drawPieChart(data);
 			else
 				root.innerHTML = "No data found";
+
+		}
+	}
+	
+	//Set Loading
+	root.innerHTML = "Loading...";
+	
+	//Perform a GET Request
+	myRequest.open("GET", url, true);
+	myRequest.send();
+}
+
+function updateWaitTimeGraph(tableId, url) {
+
+	var root = document.getElementById("waitResults");
+
+	var myRequest;
+	if(window.XMLHttpRequest)
+	{
+		//Works on Modern Browsers (Chrome, Firefox, Etc.)
+		myRequest = new XMLHttpRequest();
+	}
+	else
+	{
+		//Works on Older Browsers (IE, Some Mobile Browsers, etc.)
+		myRequest = new ActiveXObject("Microsoft.XMLHTTP");
+	}
+	
+	//The Event when the request is complete
+	myRequest.onreadystatechange = function()
+	{
+		//Did it go through?
+		if(this.readyState == 4 && this.status == 200)
+		{
+			//Clear out any existing content
+			root.innerHTML = "";
+
+			var res = this.responseText.trim();
+
+			var resArr = res.split("\n");
+
+			var issues = [];
+
+			var table = "";
+
+			for(var i = 0; i < resArr.length; i++) {
+				if(resArr[i][0] == "{")
+					issues.push(JSON.parse(resArr[i]));
+				else {
+					table += resArr[i];
+				}
+			}
+
+			document.getElementById(tableId).innerHTML = table;
+
+			console.log(issues);
+			// return;
+
+			var totals = [0, 0];
+			var num = 0;
+
+			for(var i = 0; i < issues.length; i++) if(issues[i]["TA_HelpBegin"] != null && issues[i]["TA_HelpBegin"] != "null")  {
+
+				var start = new Date(issues[i]["EnterTime"]);
+				var help = new Date(issues[i]["TA_HelpBegin"]);
+				var end = new Date(issues[i]["EndTime"]);
+
+				var wait = help.getTime() - start.getTime();
+				var duration = end.getTime() - help.getTime();
+
+				totals[0] += wait;
+				totals[1] += duration;
+
+				num++;
+			}
+
+			if(num > 0 ) {
+				var data = [totals[0] / num, totals[1] / num];
+
+				drawPercentBar("#waitResults", data)
+			}
 
 		}
 	}
@@ -817,6 +1004,7 @@ function onEnterStudentFrequency(e, id) {
 	<option value="studentLookup">Student Lookup</option>
 	<option value="taLookup">TA Lookup</option>
 	<option value="reasonForVisit">Reason for Visit</option>
+	<option value="waitTime">Wait vs Help Time</option>
 </select>
 
 <br/>
@@ -871,7 +1059,7 @@ onclick="updateVisitFrequencyGraph('taLookupResults', 'taLookupTable', 'searchfo
 
 <center>
 <input id="getReasonsButton" type="button" value="Search by Student E-Mail:" 
-onclick="updateVisitReasonGraph('searchforreason.php?student='+document.getElementById('visitSearch').value+'&entertime='+encodeURIComponent(GetEnterTime())+'&exittime='+encodeURIComponent(GetExitTime())+'&lookupmode=student')" id="searchButton"/>
+onclick="updateVisitReasonGraph('visitsTable','searchforreason.php?student='+document.getElementById('visitSearch').value+'&entertime='+encodeURIComponent(GetEnterTime())+'&exittime='+encodeURIComponent(GetExitTime())+'&lookupmode=student')" id="searchButton"/>
 <input type="text" id="visitSearch" onkeypress="onEnterStudentFrequency(event, 'getReasonsButton')"/>
 </center>
 <hr/>
@@ -879,6 +1067,25 @@ onclick="updateVisitReasonGraph('searchforreason.php?student='+document.getEleme
 <!-- Results -->
 <center><div id="visitResults" style="width:1000px; height:500px;"></div></center>
 
+<center><div id="visitsTable"></div></center>
+
+<!-- End of Reason For Visit -->
+</div>
+
+<!-- Reason For Visit -->
+<div id="waitTime" style="display:none;">
+
+<center>
+<input id="getWaitButton" type="button" value="Search by Student E-Mail:" 
+onclick="updateWaitTimeGraph('waitTable', 'searchforwaittime.php?student='+document.getElementById('waitSearch').value+'&entertime='+encodeURIComponent(GetEnterTime())+'&exittime='+encodeURIComponent(GetExitTime())+'&lookupmode=student')" id="searchButton"/>
+<input type="text" id="waitSearch" onkeypress="onEnterStudentFrequency(event, 'getWaitButton')"/>
+</center>
+<hr/>
+
+<!-- Results -->
+<center><div id="waitResults" style="width:1000px; height:300px;"></div></center>
+
+<center><div id="waitTable"></div></center>
 <!-- End of Reason For Visit -->
 </div>
 

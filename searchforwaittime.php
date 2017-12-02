@@ -30,16 +30,12 @@ if($mySQL->connect_error)
 
 //Request the Waitlist
 $query = "SELECT * FROM pastissues WHERE (";
-
 if($_GET["student"] == "") {
 	$query = $query . "EnterTime < '" . $_GET["exittime"] . "') AND (EnterTime > '" . $_GET["entertime"] . "') ORDER BY EnterTime DESC";
 } else {
 	$query = $query . (($_GET["lookupmode"] == "student") ? ("StudentEmail") : ("TA_ID"));
 	$query = $query . " = '" . $_GET["student"] . "') AND (EnterTime < '" . $_GET["exittime"] . "') AND (EnterTime > '" . $_GET["entertime"] . "') ORDER BY EnterTime DESC";
 }
-// if($_GET["student"] == "") {
-// 	$query = "EnterTime < '" . $_GET["exittime"] . "') AND (EnterTime > '" . $_GET["entertime"] . "') ORDER BY EnterTime DESC";
-// } 
 
 //Fetch the Data
 $fetchData = $mySQL->query($query);
@@ -62,15 +58,12 @@ if($fetchData->num_rows > 0)
 	echo $tableHeaderEmail;
 	echo "</td></b><td><b>TA Rating</b></td></tr>";
 	echo "\n";
-
+	
 	while($row = mysqli_fetch_assoc($fetchData))
 	{
-		/* IMPORTANT: You can rearrange these elements in CSS */
-
-		//Echo entry as JSON for parsing in JS, each entry delimited by a newline \n
 		echo json_encode($row);
 		echo "\n";
-		
+
 		//Increment the ID
 		$rowNumber = ($rowNumber + 1) % 2;
 		
@@ -105,8 +98,7 @@ if($fetchData->num_rows > 0)
 		echo "</tr>";
 		echo "\n";
 	}
-	
-	//And finish the table!
+
 	echo "</table>";
 }
 
