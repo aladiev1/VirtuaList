@@ -771,7 +771,8 @@ function updateVisitFrequencyGraph(div, tableId, url) {
 
 			}
 
-			drawLineGraph(div, data, "Date", "Visits");
+			if(data.length > 0)
+				drawLineGraph(div, data, "Date", "Visits");
 
 			//Set the waitlist's tag to the request content
 			//root.innerHTML = this.responseText;
@@ -853,8 +854,6 @@ function updateVisitReasonGraph(tableId, url) {
 
 			if(data.length > 0)
 				drawPieChart(data);
-			else
-				root.innerHTML = "No data found";
 
 		}
 	}
@@ -1052,7 +1051,7 @@ onclick="updateVisitFrequencyGraph('taLookupResults', 'taLookupTable', 'searchfo
 <div id="reasonForVisit" style="display:none;">
 
 <center>
-<input id="getReasonsButton" type="button" value="Search by Student E-Mail:" 
+<input id="getReasonsButton" type="button" value="Search by E-Mail:" 
 onclick="updateVisitReasonGraph('visitsTable','searchforreason.php?student='+document.getElementById('visitSearch').value+'&entertime='+encodeURIComponent(GetEnterTime())+'&exittime='+encodeURIComponent(GetExitTime()))" id="searchButton"/>
 <input type="text" id="visitSearch" onkeypress="onEnterStudentFrequency(event, 'getReasonsButton')"/>
 </center>
@@ -1070,7 +1069,7 @@ onclick="updateVisitReasonGraph('visitsTable','searchforreason.php?student='+doc
 <div id="waitTime" style="display:none;">
 
 <center>
-<input id="getWaitButton" type="button" value="Search by Student E-Mail:" 
+<input id="getWaitButton" type="button" value="Search by E-Mail:" 
 onclick="updateWaitTimeGraph('waitTable', 'searchforwaittime.php?student='+document.getElementById('waitSearch').value+'&entertime='+encodeURIComponent(GetEnterTime())+'&exittime='+encodeURIComponent(GetExitTime()))" id="searchButton"/>
 <input type="text" id="waitSearch" onkeypress="onEnterStudentFrequency(event, 'getWaitButton')"/>
 </center>
