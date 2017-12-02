@@ -1053,7 +1053,7 @@ onclick="updateVisitFrequencyGraph('taLookupResults', 'taLookupTable', 'searchfo
 
 <center>
 <input id="getReasonsButton" type="button" value="Search by Student E-Mail:" 
-onclick="updateVisitReasonGraph('visitsTable','searchforreason.php?student='+document.getElementById('visitSearch').value+'&entertime='+encodeURIComponent(GetEnterTime())+'&exittime='+encodeURIComponent(GetExitTime())+'&lookupmode=student')" id="searchButton"/>
+onclick="updateVisitReasonGraph('visitsTable','searchforreason.php?student='+document.getElementById('visitSearch').value+'&entertime='+encodeURIComponent(GetEnterTime())+'&exittime='+encodeURIComponent(GetExitTime()))" id="searchButton"/>
 <input type="text" id="visitSearch" onkeypress="onEnterStudentFrequency(event, 'getReasonsButton')"/>
 </center>
 <hr/>
@@ -1071,7 +1071,7 @@ onclick="updateVisitReasonGraph('visitsTable','searchforreason.php?student='+doc
 
 <center>
 <input id="getWaitButton" type="button" value="Search by Student E-Mail:" 
-onclick="updateWaitTimeGraph('waitTable', 'searchforwaittime.php?student='+document.getElementById('waitSearch').value+'&entertime='+encodeURIComponent(GetEnterTime())+'&exittime='+encodeURIComponent(GetExitTime())+'&lookupmode=student')" id="searchButton"/>
+onclick="updateWaitTimeGraph('waitTable', 'searchforwaittime.php?student='+document.getElementById('waitSearch').value+'&entertime='+encodeURIComponent(GetEnterTime())+'&exittime='+encodeURIComponent(GetExitTime()))" id="searchButton"/>
 <input type="text" id="waitSearch" onkeypress="onEnterStudentFrequency(event, 'getWaitButton')"/>
 </center>
 <hr/>

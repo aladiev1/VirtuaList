@@ -33,8 +33,7 @@ $query = "SELECT * FROM pastissues WHERE (";
 if($_GET["student"] == "") {
 	$query = $query . "EnterTime < '" . $_GET["exittime"] . "') AND (EnterTime > '" . $_GET["entertime"] . "') ORDER BY EnterTime DESC";
 } else {
-	$query = $query . (($_GET["lookupmode"] == "student") ? ("StudentEmail") : ("TA_ID"));
-	$query = $query . " = '" . $_GET["student"] . "') AND (EnterTime < '" . $_GET["exittime"] . "') AND (EnterTime > '" . $_GET["entertime"] . "') ORDER BY EnterTime DESC";
+	$query = $query . "StudentEmail = '" . $_GET["student"] . "' OR TA_ID = '" . $_GET["student"] . "') AND (EnterTime < '" . $_GET["exittime"] . "') AND (EnterTime > '" . $_GET["entertime"] . "') ORDER BY EnterTime DESC";
 }
 
 //Fetch the Data
@@ -50,13 +49,10 @@ if($fetchData->num_rows > 0)
 	echo "<h2><b><u>Results</u></b></h2>";
 	echo "<table>";
 	
-	//Set whether the TA's or Student's email will appear
-	$tableHeaderEmail = ($_GET["lookupmode"] != "student") ? ("TA E-Mail") : ("Student E-Mail");
 	
 	//Print Header
-	echo "<tr><td><b>Enter Time</b></td><td><b>Exit Time</b></td><td><b>Total Duration</b></td><td><b>Type of Help</b></td><td><b>";
-	echo $tableHeaderEmail;
-	echo "</td></b><td><b>TA Rating</b></td></tr>";
+	echo "<tr><td><b>Enter Time</b></td><td><b>Exit Time</b></td><td><b>Total Duration</b></td><td><b>Type of Help</b></td>";
+	echo "<td><b>Student Email</b></td><td><b>TA Email</b></td><td><b>TA Rating</b></td></tr>";
 	echo "\n";
 	
 	while($row = mysqli_fetch_assoc($fetchData))
@@ -90,10 +86,8 @@ if($fetchData->num_rows > 0)
 		echo "<td id='sl_topic'>" . $row["Topic"] . "</td>";
 		
 		//Print TA_ID
-		if($_GET["lookupmode"] != "student")
-		{ echo "<td id='sl_help'>" . $row["TA_ID"] . "</td>"; }
-		else
-		{ echo "<td id='sl_help'>" . $row["StudentEmail"] . "</td>"; }
+		echo "<td id='sl_help'>" . $row["StudentEmail"] . "</td>"; 
+		echo "<td id='sl_help'>" . $row["TA_ID"] . "</td>"; 
 		
 		//Print TA Rating
 		echo "<td id='sl_rating'>" . $row["TA_Rating"] . "/5 Stars</td>";
