@@ -178,7 +178,7 @@ td
 }
 
 .pie-chart.label {
-	font-size: 20;
+	font-size: 14;
 	font-weight: bolder;
 }
 
@@ -193,6 +193,10 @@ td
 
 .percent-bar.rect.right {
 	fill: blue;
+}
+
+.percent-bar.rect.bg {
+	fill: rgba(200,200,200,1);
 }
 
 .percent-bar.label.title {
@@ -441,7 +445,12 @@ function drawLine(data, graph, xScale, yScale, color) {
 		else
 			poly += "L ";
 
-		poly += [xScale(new Date(data[i][0]).setHours(0)), yScale(data[i][1])].join(",") + " ";
+		var date = new Date(data[i][0]);
+		date.setHours(0);
+		date.setMinutes(0);
+		date.setSeconds(0);
+
+		poly += [xScale(date), yScale(data[i][1])].join(",") + " ";
 
 	}
 
@@ -454,9 +463,13 @@ function drawLine(data, graph, xScale, yScale, color) {
 		// .attr("fill-opacity", 0);
 
 	for(var i = 0; i < data.length; i++) {
+		var date = new Date(data[i][0]);
+		date.setHours(0);
+		date.setMinutes(0);
+		date.setSeconds(0);
 		if(data[i][1] != 0) graph.append("circle")
 			.attr("class", "line-graph circle")
-			.attr("cx", xScale(new Date(data[i][0]).setHours(0)))
+			.attr("cx", xScale(date))
 			.attr("cy", yScale(data[i][1]))
 			// .attr("r", 5)
 			// .attr('stroke-width', 0)
@@ -486,16 +499,28 @@ function drawPercentBar(divName, data) { //https://bl.ocks.org/mbostock/3887235
 
 	var split = splitScale(data[0] / (data[0] + data[1]))
 
+	var bgPadding = 8;
+
+	var splitWidth = 8;
+
+	graphDisplayPort.append("rect")
+		.attr("class", "percent-bar rect bg")
+		.attr("x", -bgPadding)
+		.attr("y", -bgPadding)
+		.attr("width", barWidth + bgPadding * 2)
+		.attr("height", barHeight + bgPadding * 2)
+		.attr("transform", "translate(" + ((graphWidth - barWidth) / 2) + "," + graphHeight / 4 + ")");
+
 	graphDisplayPort.append("rect")
 		.attr("class", "percent-bar rect left")
-		.attr("width", split - 4)
+		.attr("width", split - splitWidth / 2)
 		.attr("height", barHeight)
 		.attr("transform", "translate(" + ((graphWidth - barWidth) / 2) + "," + graphHeight / 4 + ")");
 
 	graphDisplayPort.append("rect")
 		.attr("class", "percent-bar rect right")
-		.attr("x", split + 4)
-		.attr("width", (barWidth - split))
+		.attr("x", split + splitWidth / 2)
+		.attr("width", (barWidth - (split + splitWidth / 2)))
 		.attr("height", barHeight)
 		.attr("transform", "translate(" + ((graphWidth - barWidth) / 2) + "," + graphHeight / 4 + ")");
 
@@ -709,6 +734,10 @@ function updateVisitFrequencyGraph(div, tableId, url) {
 				}
 			}
 
+			console.log(issues);
+
+			// return;
+
 			document.getElementById(tableId).innerHTML = table;
 
 			var data = [];
@@ -742,20 +771,25 @@ function updateVisitFrequencyGraph(div, tableId, url) {
 			}
 
 			data.sort(function (a,b) {
-				return a[0] > b[0];
-			});
 
+				if(a[0] > b[0]) {
+					return 1;
+				}
+				else if(a[0] < b[0]){
+					return -1;
+				}
+				else
+					return 0;
+			});
 
 			if(data.length != 1) { for(var i = 0; i < data.length; i++) {
 				var datum = data[i];
 
-				var date = new Date(datum[0]);
-
-				date.setDate(date.getDate() + 1);
+				var date = new Date(datum[0] + (1000 * 60 * 60 * 24));
 
 				if(i != data.length - 1) {
 					var date2 = new Date(data[i+1][0]);
-					if(date.getDate() != date2.getDate() || date.getFullYear() != date2.getFullYear() || date.getMonth() != date2.getMonth()) {
+					if((date.getDate() != date2.getDate() || date.getFullYear() != date2.getFullYear() || date.getMonth() != date2.getMonth())) {
 						data.splice(i+1, 0, [date.getTime(), 0]);
 					}
 				}
