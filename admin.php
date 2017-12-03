@@ -330,6 +330,8 @@ function drawLineGraph(div, data, xLabel, yLabel) {
 		maxX += dif;
 	}
 
+	var drawCircles = (maxX - minX) < 1000 * 60 * 60 * 24 * 30 * 4;
+
 	minY = Math.max(minY, 0);
 
 	var yAxisWidth = 100;
@@ -416,7 +418,7 @@ function drawLineGraph(div, data, xLabel, yLabel) {
 	});
 
 
-	drawLine(data, graphDisplayPort, xScale, yScale, "rgb(" + Math.floor(Math.random()*255) + "," + Math.floor(Math.random()*255) + "," + Math.floor(Math.random()*255) + ")");
+	drawLine(data, graphDisplayPort, xScale, yScale, drawCircles, "rgb(" + Math.floor(Math.random()*255) + "," + Math.floor(Math.random()*255) + "," + Math.floor(Math.random()*255) + ")");
 
 
 	//http://bl.ocks.org/phoebebright/3061203
@@ -434,7 +436,7 @@ function drawLineGraph(div, data, xLabel, yLabel) {
 }
 
 
-function drawLine(data, graph, xScale, yScale, color) {
+function drawLine(data, graph, xScale, yScale, drawCircles, color) {
 
 	var poly = "";
 
@@ -462,7 +464,7 @@ function drawLine(data, graph, xScale, yScale, color) {
 		// .attr("stroke-width", 2)
 		// .attr("fill-opacity", 0);
 
-	for(var i = 0; i < data.length; i++) {
+	if(drawCircles) for(var i = 0; i < data.length; i++) {
 		var date = new Date(data[i][0]);
 		date.setHours(0);
 		date.setMinutes(0);
