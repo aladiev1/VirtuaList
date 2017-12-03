@@ -8,7 +8,8 @@
         Black:         #000000
         Dark Red:      #8A0F0F
         Red:           #E72223
-        Yellow:        #FDC10E
+        Yellow (BG):   #F5CA5C
+		Yellow:		   #FFDB00
         Green:         #66AA44
         Light Gray:    #F1F1F1
         Lightest Gray: #F9F9F9
@@ -16,7 +17,7 @@
 */
 
 body {
-    background-color: #FDC10E;
+    background-color: #F5CA5C;
     color: #000000;
     font-family: verdana;
     font-size: 20px;
@@ -30,7 +31,7 @@ div.bord {
     border: solid 1px #000000;
     border-radius: 5px;
     padding: 1%;
-    margin: 2%;
+    margin: 2% 5% 2% 5%;
 }
 
 div.section {
@@ -40,16 +41,22 @@ div.section {
 
 form {
     padding: 1%;
-    margin: 1%;
 }
 
 /* joining/viewing waitlist */
-[type=submit] {
+[type=submit], input[type=button] {
+	/* Color */
     background-color: #66AA44;
     color: #FFFFFF;
+	
+	/* Font */
     font-size: 100%;
-    width: 50%;
-    border-radius: 5px;
+	
+	/* Border */
+    border-radius: 1px;
+	border-style: solid;
+	
+	/* Box Model */
     padding: 1%;
 }
 
@@ -66,7 +73,7 @@ select {
 /* waitlist */
 table {
     width: 95%;
-    border: 1px solid;
+    /*border: 1px solid;*/
     text-align: left;
     margin: auto;
 }
@@ -80,8 +87,70 @@ th {
 
 /* waitlist table rows */
 td {
-    border-bottom: 1px solid;
+    border: 1px solid;
     padding: 10px;
     background: white;
     /* NOTE: here there should be special formatting for a specific tag only the first item in the list has */
+}
+
+/* TA Mode Remove Button */
+#TARemove
+{
+	/* Red Color */
+	background-color: #E72223;
+	
+	/* Right Border */
+	border-radius: 0em 1em 1em 0em;
+}
+
+/* TA Mode Help Button */
+#TAOkay
+{
+	/* Left Border */
+	border-radius: 0em 0em 0em 0em;
+}
+
+/* Both TA Buttons */
+#TARemove, #TAOkay
+{
+	/* Formatting */
+	padding: 0%;
+	margin: 0%;
+	width: 100%;
+	height: 2.5em;
+	
+	/* Color */
+	border-color: #F9F9F9;
+	
+	/* Border */
+	border-style: none;
+}
+
+/* The Columns that hold the TA Buttons */
+#TAColumn
+{
+	/* Box Model */
+	margin: 0%;
+	padding: 0%;
+	
+	/* Border (removal of) */
+	border-style: none;
+	
+	/* Color */
+	background-color: #F9F9F9;
+}
+
+/* The finish help button */
+#TAFinish
+{
+	/* Color */
+	background-color: #FFDB00;
+	color: #222222;
+	
+	/* Size */
+	width: 50%;
+	
+	/* Border */
+	border-radius: 5px;
+	border-style: none;
 }

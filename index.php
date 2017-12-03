@@ -103,7 +103,7 @@ function onSignOut()
 <div class="bord">
 
 <div class="section">
-<img src="logo.png" alt="LOGO GOES HERE">
+<h2>ITE 240 Waitlist</h2>
 </div>
 
 <!-- Sign in button -->
@@ -111,7 +111,6 @@ function onSignOut()
 <center> <!--Extra center tag because this button doesn't center by itself-->
 <div class="g-signin2" data-onsuccess="onSignIn"></div>
 </center>
-</div>
 
 <!-- Khadijah: Remember that PHP is ALWAYS executed before JavaScript.
 	This is because PHP runs on the server before the client ever gets
@@ -127,7 +126,6 @@ function onSignOut()
 	<input type="hidden" name="userName" id="userName" value="" />
 </form>
 
-<div class="section">
 <form action='waitlist.php' method='post'>
 <button type='submit'>View Waitlist</button>
 </form>
