@@ -104,6 +104,140 @@ button, select {
 <!-- Declaring a function to pull from the waitlist -->
 <script type="text/javascript">
 
+var canHelp = true;
+var currentlyHelping = -1;
+
+//Finishes Helping a Person
+function FinishHelping()
+{
+	//Are you supposed to be here?
+	if(canHelp) { return; }
+	
+	//Hide the finish button
+	var finishButton = document.getElementById("CurrentlyHelping");
+	finishButton.style.display = "none";
+	
+	//Allow us to help someone again
+	canHelp = true;
+	
+	//Update the student as having been helped
+	var myRequest;
+	if(window.XMLHttpRequest)
+	{
+		//Works on Modern Browsers (Chrome, Firefox, Etc.)
+		myRequest = new XMLHttpRequest();
+	}
+	else
+	{
+		//Works on Older Browsers (IE, Some Mobile Browsers, etc.)
+		myRequest = new ActiveXObject("Microsoft.XMLHTTP");
+	}
+	
+	//The Event when the request is complete
+	myRequest.onreadystatechange = function()
+	{
+		//Did it go through?
+		if(this.readyState == 4 && this.status == 200)
+		{
+			//Update the waitlist
+			console.log(this.responseText);
+		}
+	}
+	
+	//Perform a GET Request
+	myRequest.open("GET", "removestudent.php?helpID="+currentlyHelping+"&mode=finish", true);
+	myRequest.send();
+}
+
+//Help a person on the waitlist
+function HelpPerson(helpID)
+{
+	//Are we already helping a person?
+	if(!canHelp) { alert("You're already helping someone!"); return; }
+	
+	//Okay, so first, let's prevent helping any other people until we're finished
+	canHelp = false;
+	
+	//And request that the user gets removed from the waitlist
+	var myRequest;
+	if(window.XMLHttpRequest)
+	{
+		//Works on Modern Browsers (Chrome, Firefox, Etc.)
+		myRequest = new XMLHttpRequest();
+	}
+	else
+	{
+		//Works on Older Browsers (IE, Some Mobile Browsers, etc.)
+		myRequest = new ActiveXObject("Microsoft.XMLHTTP");
+	}
+	
+	//The Event when the request is complete
+	myRequest.onreadystatechange = function()
+	{
+		//Did it go through?
+		if(this.readyState == 4 && this.status == 200)
+		{
+			//Update the waitlist
+			GetWaitlist();
+			console.log("Helping the user " + helpID);
+			
+			//Store the user's ID that you're helping
+			currentlyHelping = this.responseText;
+			console.log("IssueID: " + currentlyHelping);
+			
+			//Display the "currently helping" button
+			var finishButton = document.getElementById("CurrentlyHelping");
+			finishButton.style.display = "block";
+		}
+	}
+	
+	//Perform a GET Request
+	myRequest.open("GET", "removestudent.php?helpID="+helpID+"&mode=help", true);
+	myRequest.send();
+}
+
+//Remove a Member from the Waitlist
+function RemovePerson(helpID)
+{
+	//Make sure that this is what we want to do
+	if(confirm("Are you sure you want to remove this person?") == false)
+	{
+		return;
+	}
+		
+	console.log("Removing Person w/ Help ID " + helpID);
+	
+	//Prepare the Request
+	var myRequest;
+	if(window.XMLHttpRequest)
+	{
+		//Works on Modern Browsers (Chrome, Firefox, Etc.)
+		myRequest = new XMLHttpRequest();
+	}
+	else
+	{
+		//Works on Older Browsers (IE, Some Mobile Browsers, etc.)
+		myRequest = new ActiveXObject("Microsoft.XMLHTTP");
+	}
+	
+	//The Event when the request is complete
+	myRequest.onreadystatechange = function()
+	{
+		//Did it go through?
+		if(this.readyState == 4 && this.status == 200)
+		{
+			//Update the waitlist
+			GetWaitlist();
+			console.log("Removed the user " + helpID);
+			console.log(this.responseText);
+		}
+	}
+	
+	//Perform a GET Request
+	myRequest.open("GET", "removestudent.php?helpID="+helpID+"&mode=remove", true);
+	myRequest.send();
+}
+
 //Updates the Waitlist
 function GetWaitlist()
 {
@@ -182,7 +316,13 @@ window.onload = function()
 </select>
 </div>
 <!-- Line Break -->
-<p>
+<br/>
+
+<!-- TA Button -->
+<div id="CurrentlyHelping" style="display: none">
+<input type="button" id="TAFinish" value="Finish Helping Student" onclick="FinishHelping()"/>
+<br />
+</div>
 
 <!-- This is where the waitlist will go -->
 <div class="section">

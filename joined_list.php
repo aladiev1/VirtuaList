@@ -37,7 +37,20 @@ if($mySQL->connect_error)
 	die("Connection to the ITE 240 Waitlist Failed! " . $conn->connect_error);
 }
 
-//Insert Query
+//First, check if I'm in the waitlist already or not
+$query = "SELECT ClassID FROM waitlist WHERE StudentEmail='" . $_SESSION["email"] . "'";
+
+//Perform the Query
+$fetchData = $mySQL->query($query);
+
+//Did we get anything? (we shouldn't of)
+if($fetchData->num_rows > 0)
+{
+	//Display the error message
+	die("You're already on the waitlist!");
+}
+
+//Okay, now we can insert ourselves
 $timeStamp = date("Y-m-d H:i:s");
 $query = "INSERT INTO `cmsc447`.`waitlist`
 (`StudentEmail`,
