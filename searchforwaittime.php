@@ -51,7 +51,7 @@ if($fetchData->num_rows > 0)
 	
 	
 	//Print Header
-	echo "<tr><td><b>Enter Time</b></td><td><b>Exit Time</b></td><td><b>Total Duration</b></td><td><b>Type of Help</b></td>";
+	echo "<tr><td><b>Enter Time</b></td><td><b>Help Began</b></td><td><b>Wait Time</b></td><td><b>Exit Time</b></td><td><b>Help Duration</b></td><td><b>Total Duration</b></td><td><b>Type of Help</b></td>";
 	echo "<td><b>Student Email</b></td><td><b>TA Email</b></td><td><b>TA Rating</b></td></tr>";
 	echo "\n";
 	
@@ -69,10 +69,31 @@ if($fetchData->num_rows > 0)
 		//Print the Enter Time
 		$enterTime = new DateTime($row["EnterTime"]);
 		echo "<td id='sl_enterTime'>" . $row["EnterTime"] . "</td>";
+
+
+		//Print the Enter Time
+		$helpTime = new DateTime($row["TA_HelpBegin"]);
+		echo "<td id='sl_enterTime'>" . $row["TA_HelpBegin"] . "</td>";
 		
+
+		if(is_null($row["TA_HelpBegin"])) {
+			echo "<td id='wait_duration'></td>";
+		} else {
+			$wait = $enterTime->diff($helpTime)->format('%hh %im');
+			echo "<td id='wait_duration'>" . $wait . "</td>";
+		}
+
+
 		//Print the End Time
 		$endTime = new DateTime($row["EndTime"]);
 		echo "<td id='sl_exitTime'>" . $row["EndTime"] . "</td>";
+
+		if(is_null($row["TA_HelpBegin"]) || is_null($row["EndTime"])) {
+			echo "<td id='help_duration'></td>";
+		} else {
+			$helpDuration = $helpTime->diff($endTime)->format('%hh %im');
+			echo "<td id='help_duration'>" . $helpDuration . "</td>";
+		}
 	
 		//Print Duration
 		if(is_null($row["EndTime"])) {

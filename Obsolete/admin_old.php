@@ -332,13 +332,6 @@ function drawLineGraph(div, data, xLabel, yLabel) {
 
 	var drawCircles = (maxX - minX) < 1000 * 60 * 60 * 24 * 30 * 4;
 
-	var numDays = (maxX - minX) / (1000*60*60*24);
-
-	console.log(numDays);
-
-	console.log()
-
-
 	minY = Math.max(minY, 0);
 
 	var yAxisWidth = 100;
@@ -351,8 +344,6 @@ function drawLineGraph(div, data, xLabel, yLabel) {
 
 	var graphWidth = displayWidth - yAxisWidth;
 	var graphHeight = displayHeight - xAxisHeight;
-
-	var barWidth = graphWidth / numDays;
 
 	var xScale = d3.time.scale()
 		.domain([new Date(minX).setHours(0), new Date(maxX).setHours(0)])
@@ -426,8 +417,8 @@ function drawLineGraph(div, data, xLabel, yLabel) {
 			return 0;
 	});
 
-	console.log(barWidth);
-	drawLine(data, graphDisplayPort, xScale, yScale, barWidth, graphHeight, drawCircles, "rgb(" + Math.floor(Math.random()*255) + "," + Math.floor(Math.random()*255) + "," + Math.floor(Math.random()*255) + ")");
+
+	drawLine(data, graphDisplayPort, xScale, yScale, drawCircles, "rgb(" + Math.floor(Math.random()*255) + "," + Math.floor(Math.random()*255) + "," + Math.floor(Math.random()*255) + ")");
 
 
 	//http://bl.ocks.org/phoebebright/3061203
@@ -445,28 +436,23 @@ function drawLineGraph(div, data, xLabel, yLabel) {
 }
 
 
-function drawLine(data, graph, xScale, yScale, width, graphHeight, drawCircles, color) {
+function drawLine(data, graph, xScale, yScale, drawCircles, color) {
 
 	var poly = "";
 
-
-	console.log(width);
 	for(var i = 0; i < data.length; i++) {
 
+		if(i == 0)
+			poly = "M ";
+		else
+			poly += "L ";
 
 		var date = new Date(data[i][0]);
 		date.setHours(0);
 		date.setMinutes(0);
 		date.setSeconds(0);
 
-		graph.append("rect")
-			.attr("class", "line-graph rect")
-			.attr("x", xScale(date))
-			.attr("y", yScale(data[i][1]))
-			.attr("width", width)
-			.attr("height", graphHeight - yScale(data[i][1]))
-			.attr("fill", color);
-			//.attr("transform", "translate(" + ((graphWidth - barWidth) / 2) + "," + graphHeight / 4 + ")");
+		poly += [xScale(date), yScale(data[i][1])].join(",") + " ";
 
 	}
 
@@ -478,7 +464,7 @@ function drawLine(data, graph, xScale, yScale, width, graphHeight, drawCircles, 
 		// .attr("stroke-width", 2)
 		// .attr("fill-opacity", 0);
 
-	if(false && drawCircles) for(var i = 0; i < data.length; i++) {
+	if(drawCircles) for(var i = 0; i < data.length; i++) {
 		var date = new Date(data[i][0]);
 		date.setHours(0);
 		date.setMinutes(0);
