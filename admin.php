@@ -968,10 +968,13 @@ function updateWaitTimeGraph(tableId, url) {
 				var wait = help.getTime() - start.getTime();
 				var duration = end.getTime() - help.getTime();
 
-				totals[0] += wait;
-				totals[1] += duration;
+				if(wait < 1000*60*60*5 && duration < 1000*60*60*5) {
 
-				num++;
+					totals[0] += wait;
+					totals[1] += duration;
+
+					num++;
+				}
 			}
 
 			if(num > 0 ) {
