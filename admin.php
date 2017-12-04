@@ -121,6 +121,10 @@ input[type=button], select
 #studentLookupResults
 {
 	/* Box Model */
+	/*margin-top: 2em;*/
+}
+
+.results {
 	margin-top: 2em;
 }
 
@@ -155,26 +159,22 @@ td
 	padding: 0.4em 0.6em 0.4em 0.6em;
 }
 
-.line-graph.path {
-	stroke-width: 2;
-	fill-opacity: 0;
-}
 
-.line-graph.circle {
-	r: 4;
-	stroke-width: 0;
-}
-
-.line-graph.x-axis {
+.histogram.x-axis {
 
 }
 
-.line-graph.y-axis {
+.histogram.y-axis {
 
 }
 
-.line-graph.label {
+.histogram.label {
 	font-size: 20;
+    text-anchor: middle; 
+}
+
+.histogram.rect {
+
 }
 
 .pie-chart.label {
@@ -228,6 +228,11 @@ td
 
 <script type="text/javascript">
 
+function randomColor(min, max) {
+	if(min === undefined || min < 0) min = 0; if(max === undefined || max > 255) max = 255;
+	return "rgb(" + (Math.floor(Math.random() * (max - min)) + min) + "," + (Math.floor(Math.random() * (max - min)) + min) + "," + (Math.floor(Math.random() * (max - min)) + min) + ")";
+}
+
 function drawPieChart(data) { //https://bl.ocks.org/mbostock/3887235
 
 	var divName = "#visitResults";
@@ -268,7 +273,7 @@ function drawPieChart(data) { //https://bl.ocks.org/mbostock/3887235
 		graphDisplayPort.append("path")
 			.attr("class", "arc")
 			.attr("d", arc)
-			.attr("fill", "rgb(" + Math.floor(Math.random()*255) + "," + Math.floor(Math.random()*255) + "," + Math.floor(Math.random()*255) + ")")
+			.attr("fill", randomColor(20, 200))
 			.attr("transform", "translate(" + cx + "," + cy + ")");
 
 		graphDisplayPort.append("text")
@@ -283,7 +288,7 @@ function drawPieChart(data) { //https://bl.ocks.org/mbostock/3887235
 	}
 }
 
-function drawLineGraph(div, data, xLabel, yLabel) {
+function drawHistogram(div, data, xLabel, yLabel) {
 
 	var divName = "#" + div;
 
@@ -330,14 +335,7 @@ function drawLineGraph(div, data, xLabel, yLabel) {
 		maxX += dif;
 	}
 
-	var drawCircles = (maxX - minX) < 1000 * 60 * 60 * 24 * 30 * 4;
-
 	var numDays = (maxX - minX) / (1000*60*60*24);
-
-	console.log(numDays);
-
-	console.log()
-
 
 	minY = Math.max(minY, 0);
 
@@ -380,7 +378,7 @@ function drawLineGraph(div, data, xLabel, yLabel) {
 		.append("g");
 
 	yAxisDisplayPort.append("g")
-		.attr("class", "line-graph y-axis axis")
+		.attr("class", "histogram y-axis axis")
 		.attr("transform", "translate(" + (yAxisWidth) + "," + 0 + ")")
 		.call(yAxis);
 
@@ -397,7 +395,7 @@ function drawLineGraph(div, data, xLabel, yLabel) {
 		.append("g");
 
 	xAxisDisplayPort.append("g")
-		.attr("class", "line-graph x-axis axis")
+		.attr("class", "histogram x-axis axis")
 		.call(xAxis);
 
 	var polygonData = [];
@@ -426,26 +424,22 @@ function drawLineGraph(div, data, xLabel, yLabel) {
 			return 0;
 	});
 
-	console.log(barWidth);
-	drawLine(data, graphDisplayPort, xScale, yScale, barWidth, graphHeight, drawCircles, "rgb(" + Math.floor(Math.random()*255) + "," + Math.floor(Math.random()*255) + "," + Math.floor(Math.random()*255) + ")");
-
+	drawBars(data, graphDisplayPort, xScale, yScale, barWidth, graphHeight, randomColor(20, 200));
 
 	//http://bl.ocks.org/phoebebright/3061203
 	yAxisDisplayPort.append("text")
-		    .attr("class", "line-graph label")
-            .attr("text-anchor", "middle")  
+		    .attr("class", "histogram label")
             .attr("transform", "translate("+ (yAxisWidth/2) +","+(graphHeight/2)+")rotate(-90)")
             .text(yLabel);
 
     xAxisDisplayPort.append("text")
-		    .attr("class", "line-graph label")
-            .attr("text-anchor", "middle") 
-            .attr("transform", "translate("+ (graphWidth/2) +","+(xAxisHeight/2)+")") 
+		    .attr("class", "histogram label")
+            .attr("transform", "translate("+ ((displayWidth/2) - yAxisWidth) +","+(xAxisHeight/2)+")") 
             .text(xLabel);
 }
 
 
-function drawLine(data, graph, xScale, yScale, width, graphHeight, drawCircles, color) {
+function drawBars(data, graph, xScale, yScale, width, graphHeight, color) {
 
 	var poly = "";
 
@@ -457,7 +451,7 @@ function drawLine(data, graph, xScale, yScale, width, graphHeight, drawCircles, 
 		date.setSeconds(0);
 
 		graph.append("rect")
-			.attr("class", "line-graph rect")
+			.attr("class", "histogram rect")
 			.attr("x", xScale(date))
 			.attr("y", yScale(data[i][1]))
 			.attr("width", Math.max(1,width))
@@ -729,7 +723,10 @@ function updateVisitFrequencyGraph(div, tableId, url) {
 
 			// return;
 
-			document.getElementById(tableId).innerHTML = table;
+			if(table.trim() == "No data found")
+				document.getElementById(tableId).innerHTML = "";
+			else
+				document.getElementById(tableId).innerHTML = table;
 
 			var data = [];
 
@@ -797,7 +794,10 @@ function updateVisitFrequencyGraph(div, tableId, url) {
 			}
 
 			if(data.length > 0)
-				drawLineGraph(div, data, "Date", "Visits");
+				drawHistogram(div, data, "Date", "Visits");
+			else {
+				root.innerHTML = "No data found";
+			}
 
 			//Set the waitlist's tag to the request content
 			//root.innerHTML = this.responseText;
@@ -854,7 +854,10 @@ function updateVisitReasonGraph(tableId, url) {
 				}
 			}
 
-			document.getElementById(tableId).innerHTML = table;
+			if(table.trim() == "No data found")
+				document.getElementById(tableId).innerHTML = "";
+			else
+				document.getElementById(tableId).innerHTML = table;
 
 			var data = [];
 
@@ -879,6 +882,9 @@ function updateVisitReasonGraph(tableId, url) {
 
 			if(data.length > 0)
 				drawPieChart(data);
+			else {
+				root.innerHTML = "No data found";
+			}
 
 		}
 	}
@@ -932,7 +938,10 @@ function updateWaitTimeGraph(tableId, url) {
 				}
 			}
 
-			document.getElementById(tableId).innerHTML = table;
+			if(table.trim() == "No data found")
+				document.getElementById(tableId).innerHTML = "";
+			else
+				document.getElementById(tableId).innerHTML = table;
 
 			var totals = [0, 0];
 			var num = 0;
@@ -957,6 +966,8 @@ function updateWaitTimeGraph(tableId, url) {
 				var data = [totals[0] / num, totals[1] / num];
 
 				drawPercentBar("#waitResults", data)
+			} else {
+				root.innerHTML = "No data found";
 			}
 
 		}
@@ -1046,7 +1057,7 @@ onclick="updateVisitFrequencyGraph('studentLookupResults', 'studentLookupTable',
 <hr/>
 
 <!-- Results -->
-<center><div id="studentLookupResults" style="width:1000px; height:500px;"></div></center>
+<center><div id="studentLookupResults" class="results" style="width:1000px; height:500px;"></div></center>
 
 <center><div id="studentLookupTable"></div></center>
 
@@ -1065,7 +1076,7 @@ onclick="updateVisitFrequencyGraph('taLookupResults', 'taLookupTable', 'searchfo
 <hr/>
 
 <!-- Results -->
-<center><div id="taLookupResults" style="width:1000px; height:500px;"></div></center>
+<center><div id="taLookupResults" class="results" style="width:1000px; height:500px;"></div></center>
 
 <center><div id="taLookupTable"></div></center>
 
@@ -1083,7 +1094,7 @@ onclick="updateVisitReasonGraph('visitsTable','searchforreason.php?student='+doc
 <hr/>
 
 <!-- Results -->
-<center><div id="visitResults" style="width:1000px; height:500px;"></div></center>
+<center><div id="visitResults" class="results" style="width:1000px; height:500px;"></div></center>
 
 <center><div id="visitsTable"></div></center>
 
@@ -1101,7 +1112,7 @@ onclick="updateWaitTimeGraph('waitTable', 'searchforwaittime.php?student='+docum
 <hr/>
 
 <!-- Results -->
-<center><div id="waitResults" style="width:1000px; height:300px;"></div></center>
+<center><div id="waitResults" class="results" style="width:1000px; height:300px;"></div></center>
 
 <center><div id="waitTable"></div></center>
 <!-- End of Reason For Visit -->

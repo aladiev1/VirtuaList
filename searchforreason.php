@@ -30,7 +30,7 @@ if($mySQL->connect_error)
 
 //Request the Waitlist
 $query = "SELECT * FROM pastissues WHERE (";
-if($_GET["student"] == "") {
+if($_GET["student"] == "" || $_GET["student"] == "*") {
 	$query = $query . "EnterTime < '" . $_GET["exittime"] . "') AND (EnterTime > '" . $_GET["entertime"] . "') ORDER BY EnterTime DESC";
 } else {
 	$query = $query . "StudentEmail = '" . $_GET["student"] . "' OR TA_ID = '" . $_GET["student"] . "') AND (EnterTime < '" . $_GET["exittime"] . "') AND (EnterTime > '" . $_GET["entertime"] . "') ORDER BY EnterTime DESC";
