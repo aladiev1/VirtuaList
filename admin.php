@@ -174,7 +174,8 @@ td
 }
 
 .histogram.rect {
-
+	/*stroke-width: 1px;
+	stroke: black;*/
 }
 
 .pie-chart.label {
@@ -270,6 +271,10 @@ function drawPieChart(data) { //https://bl.ocks.org/mbostock/3887235
 			.startAngle(arcs[i].startAngle)
 			.endAngle(arcs[i].endAngle);
 
+		var angle = Math.atan2(arc.centroid()[1], arc.centroid()[0]) * (180 / Math.PI);
+
+		var color = "hsl(" + angle + ", 80%, 60%)";
+
 		graphDisplayPort.append("path")
 			.attr("class", "arc")
 			.attr("d", arc)
@@ -353,7 +358,7 @@ function drawHistogram(div, data, xLabel, yLabel) {
 	var barWidth = graphWidth / numDays;
 
 	var xScale = d3.time.scale()
-		.domain([new Date(minX).setHours(0), new Date(maxX).setHours(0)])
+		.domain([new Date(minX), new Date(maxX)])
 		.range([0, graphWidth]);
 
 	var xAxis = d3.svg.axis()
@@ -424,6 +429,9 @@ function drawHistogram(div, data, xLabel, yLabel) {
 			return 0;
 	});
 
+	console.log(graphWidth + " / " + numDays + " = " + barWidth);
+	//barWidth = graphWidth / numDays;
+
 	drawBars(data, graphDisplayPort, xScale, yScale, barWidth, graphHeight, randomColor(20, 200));
 
 	//http://bl.ocks.org/phoebebright/3061203
@@ -450,11 +458,15 @@ function drawBars(data, graph, xScale, yScale, width, graphHeight, color) {
 		date.setMinutes(0);
 		date.setSeconds(0);
 
+		var nextDay = new Date(date.getTime() + (1000*60*60*24));
+		
+
+
 		graph.append("rect")
 			.attr("class", "histogram rect")
 			.attr("x", xScale(date))
 			.attr("y", yScale(data[i][1]))
-			.attr("width", Math.max(1,width))
+			.attr("width", Math.max(1,width)) //Math.max(width, Math.max(Math.floor(xScale(new Date(date.getTime() + (1000*60*60*24))) - xScale(date))), 1))
 			.attr("height", graphHeight - yScale(data[i][1]))
 			.attr("fill", color);
 
