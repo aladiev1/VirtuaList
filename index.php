@@ -89,7 +89,8 @@ function onSignOut()
 	var gAuth = gapi.auth2.getAuthInstance();
 	gAuth.signOut().then(function()
 	{
-		location.reload();
+		gAuth.disconnect();
+		gapi.auth2.getAuthInstance().currentUser.get().reloadAuthResponse();
 	});
 }
 </script>
