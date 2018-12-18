@@ -1,5 +1,6 @@
 # VirtuaList
 
+VirtuaList is a dual-purpose web-based waitlist and database system. The waitlist is designed to be used by UMBC CMSC students seeking aid at office hours, while the database captures this information and generates analytics.
 
 University of Maryland, Baltimore County
 
@@ -16,4 +17,4 @@ Timothy Sholar: tsholar1@umbc.edu
 
 Khadijah Wali: kwali2@umbc.edu
 
-VirtuaList is a dual-purpose web-based waitlist and database system. The waitlist is designed to be used by UMBC CMSC students seeking aid at office hours, while the database captures this information and generates analytics.
+
